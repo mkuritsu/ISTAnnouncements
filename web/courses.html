@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISTAnnouncements - Courses</title>
+    <link rel="stylesheet" href="courses.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <script defer src="courses.js"></script>
+</head>
+
+<body>
+    <header>
+        <a href="/">
+            <img
+                src="https://fenix.tecnico.ulisboa.pt/api/bennu-oauth/applications/570015174623432/logo?cb=1725362687682">
+            <h1>ISTAnnouncements</h1>
+        </a>
+        <button id="add-course-button">Add Course</button>
+    </header>
+    <main>
+        <ul class="courses-list">
+        </ul>
+    </main>
+    <div class="add-course-popup-container">
+        <div class="add-course-popup">
+            <h1>Add course</h1>
+            <form>
+                <label for="degree-select">Degree type:</label>
+                <select id="degree-select">
+                    <option selected="true" value="-1">None</option>
+                </select>
+                <label for="course-select">Course:</label>
+                <select id="course-select">
+                    <option selected="true" value="-1">None</option>
+                </select>
+                <div>
+                    <label for="ignore-previous">Ignore previous:</label>
+                    <input type="checkbox" id="ignore-previous" name="ignore-previous" checked>
+                </div>
+                <div>
+                    <label for="course-color">Discord color:</label>
+                    <input type="color" id="course-color">
+                </div>
+                <button type="button" id="submit-add-course-button">Add</button>
+                <button type="button" id="cancel-add-course-button">Cancel</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

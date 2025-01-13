@@ -1,0 +1,6 @@
+username = "Fenix IST"
+avatar_url = "https://fenix.tecnico.ulisboa.pt/api/bennu-oauth/applications/570015174623432/logo?cb=1725362687682"
+webhook_url = "discord webhook url here"
+mention_role = 1280425739124215943
+poll_time = 600000
+database_url = "sqlite://ist_announcements.db"
