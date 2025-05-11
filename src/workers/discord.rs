@@ -31,6 +31,7 @@ pub async fn discord_worker(
                 Ok(r) => {
                     if let Err(e) = r.error_for_status() {
                         log::error!("Failed to send discord webhook message: {e}");
+                        log::error!("Message: {:#?}", message);
                         break;
                     }
                 }
