@@ -17,7 +17,7 @@ impl Database {
         db.create_table_courses().await?;
         Ok(db)
     }
-
+´~
     async fn create_table_courses(&self) -> Result<(), sqlx::Error> {
         sqlx::query(
             "CREATE TABLE IF NOT EXISTS Courses (

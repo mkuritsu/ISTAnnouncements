@@ -73,7 +73,7 @@ fn create_webhook_message<'a>(
     };
     WebhookMessage {
         content: format!(
-            "<@&{}> Novo anúncioa na cadeira {}",
+            "<@&{}> Novo outlet of knoledge na cadeira {}",
             config.mention_role, announcement.course.name
         ),
         username: &config.username,
