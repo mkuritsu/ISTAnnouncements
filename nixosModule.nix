@@ -48,6 +48,12 @@ in
       description = "The path/url for the sqlite database to store data";
       default = "sqlite://ist_announcements.db";
     };
+
+    log_level = lib.mkOption {
+      type = lib.types.string;
+      description = "The log level to use for the logger";
+      default = "error";
+    };
   };
 
   config =
@@ -66,13 +72,14 @@ in
         pkg
       ];
 
-      systemd.services.istannoucements = {
+      systemd.services.istannouncements = {
         enable = true;
         after = [ "network.target" ];
         wantedBy = [ "default.target" ];
         description = "ISTAnnouncement's systemd service";
         serviceConfig = {
           Type = "simple";
+          Environment = ''RUST_LOG=${cfg.log_level}'';
           ExecStart = "${pkg}/bin/ist_announcements --config ${parsed-config}";
         };
       };
