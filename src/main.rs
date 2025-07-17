@@ -4,6 +4,7 @@ use axum::{
     routing::{delete, get},
     Router,
 };
+use clap::{command, Parser};
 use config::AppConfig;
 use db::Database;
 use handlers::AppState;
@@ -59,9 +60,17 @@ pub async fn run_app(config: &AppConfig) {
         .expect("Failed to server web application!");
 }
 
+#[derive(Debug, Parser)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(short, long, default_value = "AppConfig.toml")]
+    config: String,
+}
+
 fn main() {
     pretty_env_logger::init_timed();
-    let config = AppConfig::load_from_file("AppConfig.toml").expect("Failed to load config!");
+    let args = Args::parse();
+    let config = AppConfig::load_from_file(args.config).expect("Failed to load config!");
     log::info!("Loaded configuration: {:#?}", config);
     let rt = Runtime::new().expect("Failed to create async runtime!");
     rt.block_on(run_app(&config));
