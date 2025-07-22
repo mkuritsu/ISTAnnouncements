@@ -51,7 +51,7 @@ pub async fn run_app(config: &AppConfig) {
     let app_router = Router::new()
         .nest("/api", api_router)
         .nest("/cors", cors_router)
-        .fallback_service(ServeDir::new("web"));
+        .fallback_service(ServeDir::new(config.web_dir.as_str()));
     let listener = TcpListener::bind("0.0.0.0:8000")
         .await
         .expect("Failed to bind TcpListener");

@@ -28,5 +28,10 @@ rustPlatform.buildRustPackage {
     sqlite
   ];
 
+  postInstall = ''
+    mkdir -p $out/share/web
+    cp -r $src/web/* $out/share/web/
+  '';
+
   cargoHash = "sha256-/pYiB5PqQoDdvvEpwurGPkC4nl8tEUdxe8L4NPR2/b0=";
 }

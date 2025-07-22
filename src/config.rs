@@ -10,6 +10,7 @@ pub struct AppConfig {
     pub mention_role: u64,
     pub poll_time: u64,
     pub database_url: String,
+    pub web_dir: String,
 }
 
 impl AppConfig {

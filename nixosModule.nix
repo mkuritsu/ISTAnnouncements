@@ -49,6 +49,12 @@ in
       default = "sqlite:///var/lib/istannouncements/istannouncements.db";
     };
 
+    web_dir = lib.mkOption {
+      type = lib.types.string;
+      description = "The path to the directory containing the webpage files to server";
+      default = "${pkg}/share/web";
+    };
+
     log_level = lib.mkOption {
       type = lib.types.string;
       description = "The log level to use for the logger";
@@ -65,6 +71,7 @@ in
         mention_role = ${builtins.toString cfg.mention_role}
         poll_time = ${builtins.toString cfg.poll_time}
         database_url = "${cfg.database_url}"
+        web_dir = "${cfg.web_dir}";
       '';
     in
     lib.mkIf cfg.enable {

@@ -4,3 +4,4 @@ webhook_url = "discord webhook url here"
 mention_role = 1280425739124215943
 poll_time = 600000
 database_url = "sqlite://ist_announcements.db"
+web_dir = "web"
