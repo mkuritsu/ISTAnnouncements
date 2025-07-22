@@ -46,7 +46,7 @@ in
     database_url = lib.mkOption {
       type = lib.types.string;
       description = "The path/url for the sqlite database to store data";
-      default = "sqlite://ist_announcements.db";
+      default = "sqlite:///var/lib/istannouncements/istannouncements.db";
     };
 
     log_level = lib.mkOption {
@@ -72,6 +72,13 @@ in
         pkg
       ];
 
+      users.groups.istannouncements = { };
+
+      users.users.istannouncements = {
+        isSystemUser = true;
+        group = "istannouncements";
+      };
+
       systemd.services.istannouncements = {
         enable = true;
         after = [ "network.target" ];
@@ -79,9 +86,15 @@ in
         description = "ISTAnnouncement's systemd service";
         serviceConfig = {
           Type = "simple";
+          User = "istannouncements";
+          Restart = "on-failure";
           Environment = ''RUST_LOG=${cfg.log_level}'';
           ExecStart = "${pkg}/bin/ist_announcements --config ${parsed-config}";
         };
       };
+
+      systemd.tmpfiles.rules = [
+        "d /var/lib/istannouncements 0770 istannouncements istannouncements"
+      ];
     };
 }
