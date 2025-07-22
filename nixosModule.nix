@@ -79,7 +79,8 @@ in
         mention_role = ${builtins.toString cfg.mention_role}
         poll_time = ${builtins.toString cfg.poll_time}
         database_url = "${cfg.database_url}"
-        web_dir = "${cfg.web_dir}";
+        web_dir = "${cfg.web_dir}"
+        port = ${builtins.toString cfg.port}
       '';
     in
     lib.mkIf cfg.enable {
