@@ -13,6 +13,14 @@ in
   options.services.istannouncements = {
     enable = lib.mkEnableOption "Enable istannouncements service";
 
+    openFirewall = lib.mkEnableOption "Open the firewall port";
+
+    port = lib.mkOption {
+      type = lib.types.int;
+      description = "The port to use to run the web server";
+      default = 8000;
+    };
+
     username = lib.mkOption {
       type = lib.types.string;
       description = "The name of the username in the annoucement message";
@@ -78,6 +86,8 @@ in
       environment.systemPackages = [
         pkg
       ];
+
+      networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
 
       users.groups.istannouncements = { };
 

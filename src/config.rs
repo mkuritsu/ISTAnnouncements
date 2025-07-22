@@ -11,6 +11,7 @@ pub struct AppConfig {
     pub poll_time: u64,
     pub database_url: String,
     pub web_dir: String,
+    pub port: u16,
 }
 
 impl AppConfig {

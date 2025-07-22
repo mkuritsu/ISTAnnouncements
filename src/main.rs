@@ -52,7 +52,7 @@ pub async fn run_app(config: &AppConfig) {
         .nest("/api", api_router)
         .nest("/cors", cors_router)
         .fallback_service(ServeDir::new(config.web_dir.as_str()));
-    let listener = TcpListener::bind("0.0.0.0:8000")
+    let listener = TcpListener::bind(format!("0.0.0.0:{}", config.port))
         .await
         .expect("Failed to bind TcpListener");
     axum::serve(listener, app_router)
