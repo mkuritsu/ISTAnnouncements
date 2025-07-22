@@ -33,10 +33,9 @@ in
       default = "https://fenix.tecnico.ulisboa.pt/api/bennu-oauth/applications/570015174623432/logo?cb=1725362687682";
     };
 
-    webhook_url = lib.mkOption {
+    webhook_url_file = lib.mkOption {
       type = lib.types.string;
-      description = "The webhook url to where to send the announcement message";
-      default = "";
+      description = "The file containing the webhook url to where to send the announcement message";
     };
 
     mention_role = lib.mkOption {
@@ -75,7 +74,7 @@ in
       parsed-config = pkgs.writeText "generated-istannouncements-config" ''
         username = "${cfg.username}"
         avatar_url = "${cfg.avatar_url}"
-        webhook_url = "${cfg.webhook_url}"
+        webhook_url_file = "${cfg.webhook_url_file}"
         mention_role = ${builtins.toString cfg.mention_role}
         poll_time = ${builtins.toString cfg.poll_time}
         database_url = "${cfg.database_url}"
