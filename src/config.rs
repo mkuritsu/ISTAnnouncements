@@ -6,8 +6,7 @@ use serde::{Deserialize, Serialize};
 pub struct AppConfig {
     pub username: String,
     pub avatar_url: String,
-    pub webhook_url_file: String,
-    pub mention_role: u64,
+    pub webhook_url: String,
     pub poll_time: u64,
     pub database_url: String,
     pub web_dir: String,

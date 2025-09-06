@@ -36,6 +36,7 @@ pub struct AddCourseDTO {
     name: String,
     rss_url: String,
     color: i32,
+    role_id: String,
     ignore_previous: bool,
 }
 
@@ -54,6 +55,7 @@ pub async fn create_course(
             &course.name,
             &course.rss_url,
             course.color,
+            course.role_id,
             last_announcement,
         )
         .await

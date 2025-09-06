@@ -38,12 +38,6 @@ in
       description = "The file containing the webhook url to where to send the announcement message";
     };
 
-    mention_role = lib.mkOption {
-      type = lib.types.int;
-      description = "The discord role id to mention";
-      default = 1280425739124215943;
-    };
-
     poll_time = lib.mkOption {
       type = lib.types.int;
       description = "The amount of time in milis before every poll";
@@ -65,7 +59,7 @@ in
     log_level = lib.mkOption {
       type = lib.types.str;
       description = "The log level to use for the logger";
-      default = "error";
+      default = "warn";
     };
   };
 
@@ -75,7 +69,6 @@ in
         username = "${cfg.username}"
         avatar_url = "${cfg.avatar_url}"
         webhook_url_file = "${cfg.webhook_url_file}"
-        mention_role = ${builtins.toString cfg.mention_role}
         poll_time = ${builtins.toString cfg.poll_time}
         database_url = "${cfg.database_url}"
         web_dir = "${cfg.web_dir}"
