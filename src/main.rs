@@ -1,4 +1,4 @@
-use std::{fs, sync::Arc};
+use std::sync::Arc;
 
 use axum::{
     routing::{delete, get},
@@ -17,7 +17,7 @@ mod db;
 mod handlers;
 mod workers;
 
-pub async fn run_app(config: &AppConfig, webhook_url: String) {
+pub async fn run_app(config: &AppConfig) {
     let db = Database::connect(&config.database_url)
         .await
         .expect("Failed to connect to database!");
@@ -36,7 +36,6 @@ pub async fn run_app(config: &AppConfig, webhook_url: String) {
         notify_receiver,
         storage_sender,
         config.clone(),
-        webhook_url,
     ));
     tokio::spawn(workers::storage_worker(storage_receiver, db.clone()));
 
@@ -72,9 +71,7 @@ fn main() {
     pretty_env_logger::init_timed();
     let args = Args::parse();
     let config = AppConfig::load_from_file(args.config).expect("Failed to load config!");
-    let webhook_url =
-        fs::read_to_string(&config.webhook_url_file).expect("Failed to read webhool url!");
     log::info!("Loaded configuration: {:#?}", config);
     let rt = Runtime::new().expect("Failed to create async runtime!");
-    rt.block_on(run_app(&config, webhook_url));
+    rt.block_on(run_app(&config));
 }

@@ -25,6 +25,7 @@ impl Database {
             name TEXT NOT NULL,
             rss_url TEXT NOT NULL,
             color INTEGER NOT NULL,
+            role_id TEXT NOT NULL,
             last_announcement INT8
         )",
         )
@@ -39,15 +40,17 @@ impl Database {
         name: &str,
         rss_url: &str,
         color: i32,
+        role_id: String,
         last_announcement: Option<i64>,
     ) -> Result<Course, sqlx::Error> {
         sqlx::query_as::<_, Course>(
-            "INSERT INTO Courses (id, name, rss_url, color, last_announcement) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            "INSERT INTO Courses (id, name, rss_url, color, role_id, last_announcement) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
         )
         .bind(id)
         .bind(name)
         .bind(rss_url)
         .bind(color)
+        .bind(role_id)
         .bind(last_announcement)
         .fetch_one(&self.pool)
         .await

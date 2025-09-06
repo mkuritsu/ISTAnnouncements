@@ -7,5 +7,6 @@ pub struct Course {
     pub name: String,
     pub rss_url: String,
     pub color: i32,
+    pub role_id: String,
     pub last_announcement: Option<i64>,
 }

@@ -7,6 +7,7 @@ const cancelAddCourseButton = document.getElementById("cancel-add-course-button"
 const popupContainer = document.querySelector(".add-course-popup-container");
 const ignorePrevious = document.getElementById("ignore-previous");
 const courseColor = document.getElementById("course-color");
+const courseRole = document.getElementById("role-id")
 
 async function deleteCourse(course) {
     await fetch("/api/courses/" + course.id, { method: "DELETE" });
@@ -73,6 +74,7 @@ async function addCourse(courseId) {
         id: parseInt(courseId),
         name: courseInfo.name,
         rss_url: courseInfo.announcementLink,
+        role_id: courseRole.value,
         ignore_previous: ignorePrevious.checked,
         color: parseInt(courseColor.value.substring(1), 16)
     };

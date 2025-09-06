@@ -1,7 +1,6 @@
 username = "Fenix IST"
 avatar_url = "https://fenix.tecnico.ulisboa.pt/api/bennu-oauth/applications/570015174623432/logo?cb=1725362687682"
-webhook_url_file = "webhook.url"
-mention_role = 1280425739124215943
+webhook_url = "https://discord.com/api/webhooks/1318055115604889612/aT411LJfodxNfuNSEyv9dj5dZN1ORub1y_FZFP3zZS-kYMa732bw19gM6q40fx2YFk3U"
 poll_time = 600000
 database_url = "sqlite://ist_announcements.db"
 web_dir = "web"

@@ -15,7 +15,6 @@ pub async fn discord_worker(
     mut receiver: UnboundedReceiver<CourseAnnouncements>,
     sender: UnboundedSender<Announcement>,
     config: AppConfig,
-    webhook_url: String,
 ) {
     log::info!("Started Discord notifier worker!");
     let client = reqwest::Client::new();
@@ -29,7 +28,7 @@ pub async fn discord_worker(
             log::debug!("Sending announcement notification: {:#?}", announcement);
             let message = create_webhook_message(&announcement, &config);
             if let Err(e) = client
-                .post(&webhook_url)
+                .post(&config.webhook_url)
                 .json(&message)
                 .send()
                 .await
@@ -82,7 +81,7 @@ fn create_webhook_message<'a>(
     WebhookMessage {
         content: format!(
             "<@&{}> Novo anúncio na cadeira {}",
-            config.mention_role, announcement.course.name
+            announcement.course.role_id, announcement.course.name
         ),
         username: &config.username,
         avatar_url: &config.avatar_url,
