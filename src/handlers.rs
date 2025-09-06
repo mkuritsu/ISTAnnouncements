@@ -67,10 +67,11 @@ pub async fn delete_course(
     Path(course_id): Path<i64>,
     State(state): State<AppState>,
 ) -> HandlerResult<()> {
-    match state.db.delete_course(course_id).await {
-        Ok(_) => Ok(()),
-        Err(e) => Err((StatusCode::INTERNAL_SERVER_ERROR, e.to_string())),
-    }
+    state
+        .db
+        .delete_course(course_id)
+        .await
+        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))
 }
 
 #[derive(Deserialize, Serialize)]
