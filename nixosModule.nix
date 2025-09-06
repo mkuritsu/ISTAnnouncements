@@ -1,12 +1,15 @@
-self: {
+self:
+{
   config,
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.services.istannouncements;
   pkg = self.packages.${pkgs.system}.default;
-in {
+in
+{
   options.services.istannouncements = {
     enable = lib.mkEnableOption "Enable istannouncements service";
 
@@ -66,26 +69,27 @@ in {
     };
   };
 
-  config = let
-    parsed-config = pkgs.writeText "generated-istannouncements-config" ''
-      username = "${cfg.username}"
-      avatar_url = "${cfg.avatar_url}"
-      webhook_url_file = "${cfg.webhook_url_file}"
-      mention_role = ${builtins.toString cfg.mention_role}
-      poll_time = ${builtins.toString cfg.poll_time}
-      database_url = "${cfg.database_url}"
-      web_dir = "${cfg.web_dir}"
-      port = ${builtins.toString cfg.port}
-    '';
-  in
+  config =
+    let
+      parsed-config = pkgs.writeText "generated-istannouncements-config" ''
+        username = "${cfg.username}"
+        avatar_url = "${cfg.avatar_url}"
+        webhook_url_file = "${cfg.webhook_url_file}"
+        mention_role = ${builtins.toString cfg.mention_role}
+        poll_time = ${builtins.toString cfg.poll_time}
+        database_url = "${cfg.database_url}"
+        web_dir = "${cfg.web_dir}"
+        port = ${builtins.toString cfg.port}
+      '';
+    in
     lib.mkIf cfg.enable {
       environment.systemPackages = [
         pkg
       ];
 
-      networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.port];
+      networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
 
-      users.groups.istannouncements = {};
+      users.groups.istannouncements = { };
 
       users.users.istannouncements = {
         isSystemUser = true;
@@ -94,8 +98,8 @@ in {
 
       systemd.services.istannouncements = {
         enable = true;
-        after = ["network.target"];
-        wantedBy = ["default.target"];
+        after = [ "network.target" ];
+        wantedBy = [ "default.target" ];
         description = "ISTAnnouncement's systemd service";
         serviceConfig = {
           Type = "simple";
