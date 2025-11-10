@@ -63,8 +63,8 @@ in
     };
 
     config_file = lib.mkOption {
-      type = lib.types.path;
-      nullable = true;
+      type = lib.types.nullOr lib.types.path;
+      default = null;
       description = "The configuration file to use";
     };
   };
@@ -72,7 +72,7 @@ in
   config =
     let
       parsed-config =
-        if cfg.config_file != null then
+        if cfg.config_file == null then
           pkgs.writeText "generated-istannouncements-config" ''
             username = "${cfg.username}"
             avatar_url = "${cfg.avatar_url}"
