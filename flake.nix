@@ -23,15 +23,15 @@
         );
     in
     {
-      nixosModules.default = import ./nixosModule.nix self;
+      nixosModules.default = import ./nix/nixosModule.nix self;
 
       packages = eachSystem (pkgs: rec {
         default = istannoucements;
-        istannoucements = pkgs.callPackage ./package.nix { };
+        istannoucements = pkgs.callPackage ./nix/package.nix { };
       });
 
       devShells = eachSystem (pkgs: {
-        default = pkgs.callPackage ./shell.nix { };
+        default = pkgs.callPackage ./nix/shell.nix { };
       });
     };
 }

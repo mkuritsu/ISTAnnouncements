@@ -3,3 +3,4 @@ target/
 *.db
 .direnv/
 webhook.url
+/result

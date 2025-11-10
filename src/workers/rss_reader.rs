@@ -10,7 +10,7 @@ use crate::{
     db::Database,
 };
 
-// TOOD: maybe would be nice to also account for edits
+// TODO: maybe would be nice to also account for edits
 pub async fn rss_reader_worker(
     db: Arc<Database>,
     sender: UnboundedSender<CourseAnnouncements>,

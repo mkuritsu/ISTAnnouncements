@@ -61,19 +61,29 @@ in
       description = "The log level to use for the logger";
       default = "warn";
     };
+
+    config_file = lib.mkOption {
+      type = lib.types.path;
+      nullable = true;
+      description = "The configuration file to use";
+    };
   };
 
   config =
     let
-      parsed-config = pkgs.writeText "generated-istannouncements-config" ''
-        username = "${cfg.username}"
-        avatar_url = "${cfg.avatar_url}"
-        webhook_url = "${cfg.webhook_url}"
-        poll_time = ${builtins.toString cfg.poll_time}
-        database_url = "${cfg.database_url}"
-        web_dir = "${cfg.web_dir}"
-        port = ${builtins.toString cfg.port}
-      '';
+      parsed-config =
+        if cfg.config_file != null then
+          pkgs.writeText "generated-istannouncements-config" ''
+            username = "${cfg.username}"
+            avatar_url = "${cfg.avatar_url}"
+            webhook_url = "${cfg.webhook_url}"
+            poll_time = ${builtins.toString cfg.poll_time}
+            database_url = "${cfg.database_url}"
+            web_dir = "${cfg.web_dir}"
+            port = ${builtins.toString cfg.port}
+          ''
+        else
+          cfg.config_file;
     in
     lib.mkIf cfg.enable {
       environment.systemPackages = [
